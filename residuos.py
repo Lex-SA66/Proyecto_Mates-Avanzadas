@@ -7,7 +7,6 @@ import gradio as gr
 z = sympy.symbols('z')
 
 # --- Función para Renderizar LaTeX como Imagen ---
-# (Sin cambios)
 def render_latex_formula(latex_str, fontsize=22):
     fig = plt.figure(figsize=(8, 2))
     ax = fig.add_subplot(111)
@@ -18,7 +17,6 @@ def render_latex_formula(latex_str, fontsize=22):
     return fig
 
 # --- Lógica de Cálculo (Backend) ---
-# (Sin cambios, ya que sympy.residue maneja polos de orden m)
 def calcular_polos_y_residuos(func, var):
     polos = {}
     try:
@@ -32,7 +30,6 @@ def calcular_polos_y_residuos(func, var):
     return polos
 
 def visualizar_plano_complejo(polos_residuos, polos_encerrados, tipo_contorno, params):
-    # (Función sin cambios)
     fig, ax = plt.subplots(figsize=(8, 8))
     
     lim_max = 5
@@ -76,7 +73,6 @@ def visualizar_plano_complejo(polos_residuos, polos_encerrados, tipo_contorno, p
     return fig
 
 def analizar_funcion_compleja(funcion_str, tipo_contorno, centro_str, radio_str, esq_inf_izq_str, esq_sup_der_str):
-    # (Función sin cambios)
     try:
         local_dict = {'z': z, 'I': sympy.I, 'pi': sympy.pi, 'exp': sympy.exp, 'sin': sympy.sin, 'cos': sympy.cos, 'sqrt': sympy.sqrt}
         funcion = sympy.sympify(funcion_str, locals=local_dict)
@@ -186,7 +182,6 @@ with gr.Blocks(theme=theme) as iface:
             ## Ejemplos para Probar
             Haz clic en un ejemplo para cargarlo automáticamente en la calculadora.
             """)
-            # --- MEJORA: Añadido ejemplo con polo de orden 3 ---
             gr.Examples(
                 examples=[
                     ["exp(z) / (z - 2)**3", "Círculo", "0+0j", "3.0", "-1-1j", "1+1j"],
@@ -199,7 +194,6 @@ with gr.Blocks(theme=theme) as iface:
             )
 
         with gr.TabItem("Teoría", id=2):
-            # --- MEJORA: Actualizada la pestaña de Teoría ---
             gr.Markdown("## Teorema del Residuo")
             gr.Markdown(
                 "El **Teorema del Residuo** establece que la integral de contorno de una función es igual a $2\pi i$ por la suma de los residuos de sus polos encerrados en dicho contorno."
